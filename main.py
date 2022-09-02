@@ -7,11 +7,13 @@ from utils import data_inputation
 %autoreload 2
 
 #%% 1) Read the data
-path = './data/'
-input_data = pd.read_excel(f'{path}b4bank.xlsx',sheet_name='Retained_Bank')
-#%% 2) EDA
+data_path = './data/'
+input_data = pd.read_excel(f'{data_path}b4bank.xlsx',sheet_name='Retained_Bank')
+#%% 2) EDA and Data Filtering/Treatment
 filtered_data = eda.ExploratoryDataAnalisys(input_data).apply_pipeline_eda()
 #%% 3) Data Inputation
 final_data = data_inputation.DataInputation(filtered_data).apply_pipeline_data_inputation()
+#%% 4) Saving data
+final_data.to_csv(f"{data_path}final_data.csv")
 
 # %%

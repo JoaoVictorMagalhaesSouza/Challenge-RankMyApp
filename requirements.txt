@@ -1,0 +1,5 @@
+pandas
+plotly
+openpyxl
+nbformat
+forex-python

@@ -1,5 +1,8 @@
 from operator import le
 import pandas as pd
+from forex_python.converter import CurrencyRates
+import datetime
+
 from copy import deepcopy
 
 class DataInputation():
@@ -19,6 +22,21 @@ class DataInputation():
             label_base.append(label_base[i])
             i += 1
         
-        self.data['week_day'] = label_base
-        return self.data
+        self.data['Week Day'] = label_base
         
+        
+    def insert_dolar_price(self):
+        '''
+            Objective: check if have a correlation between dolar price and number of instalations. 
+        '''
+        days = self.data['Date'].values
+        c = CurrencyRates()
+        dolar_prices = []
+        for day in days:
+            dolar_prices.append(c.get_rate('USD', 'BRL',day))
+        self.data['Dolar Price'] = dolar_prices
+    
+    def apply_pipeline_data_inputation(self):
+        self.insert_week_nominal_day()
+        self.insert_dolar_price()
+        return self.data

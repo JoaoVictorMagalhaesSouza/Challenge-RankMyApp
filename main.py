@@ -12,5 +12,6 @@ input_data = pd.read_excel(f'{path}b4bank.xlsx',sheet_name='Retained_Bank')
 #%% 2) EDA
 filtered_data = eda.ExploratoryDataAnalisys(input_data).apply_pipeline_eda()
 #%% 3) Data Inputation
-data_manipulation = data_inputation.DataInputation(filtered_data).insert_week_nominal_day()
+final_data = data_inputation.DataInputation(filtered_data).apply_pipeline_data_inputation()
+
 # %%

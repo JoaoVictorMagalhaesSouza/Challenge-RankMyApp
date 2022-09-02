@@ -26,7 +26,7 @@ class ExploratoryDataAnalisys():
     def remove_trap(self):
         print(f'{self.log_step} - Removing 31/09/2019 from the data...')
         '''
-            Objective: i found a day 31/09/2019. September don't have 31 days, my brother.
+            Objective: I found day 31/09/2019 but September don't have 31 days my brother.
         '''
         
         self.data = self.data.drop(index=196)

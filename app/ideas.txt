@@ -1,0 +1,1 @@
+- Usar um date ranger para permitir ao usuário visualizar as KPIs daquele período

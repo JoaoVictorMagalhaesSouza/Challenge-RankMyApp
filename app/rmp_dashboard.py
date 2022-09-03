@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
+from backend import BackEndDashboard
 
 def init_app(server):
     FONT_AWESOME = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
@@ -12,7 +13,7 @@ def init_app(server):
         server=server,
         external_stylesheets=[dbc.themes.CERULEAN,dbc.themes.BOOTSTRAP, FONT_AWESOME]
     )
-    
+    backend = BackEndDashboard()
     server = app.server
     
     card_icon = {
@@ -21,25 +22,26 @@ def init_app(server):
     "fontSize": 30,
     "margin": "auto",
     }
-    
-    card1 = dbc.CardGroup(
-    [
-        dbc.Card(
-            dbc.CardBody(
-                [
-                    html.H5("Card 1", className="card-title"),
-                    html.P("This card has some text content", className="card-text",),
-                ]
-            )
-        ),
-        dbc.Card(
-            html.Div(className="fa fa-list", style=card_icon),
-            className="bg-primary",
-            style={"maxWidth": 75},
-        ),
-    ],
-    className="mt-4 shadow",
-    )
+    def create_card_views(start_date='2019-08-01',end_date='2019-10-30'):
+        card1 = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5("App Views", className="card-title"),
+                        html.P(backend.get_app_views(start_date,end_date), className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-primary",
+                style={"maxWidth": 75},
+            ),
+        ],
+        className="mt-4 shadow",
+        )
+        return card1
     
     card2 = dbc.CardGroup(
     [
@@ -104,6 +106,9 @@ def init_app(server):
         content,       
         
     ])
+    
+        
+    
     @app.callback(
     Output("page-content", "children"),
     Input("url", "pathname"),
@@ -112,12 +117,13 @@ def init_app(server):
         if pathname == "/":
             return[
                 html.Div(id='div-date',children=[
-                html.Div(id='div-label-date',children=['Período de análise'],
+                html.Div(id='div-label-date',children=['Analysis Period'],
                          style={'font-family':'Roboto, sans-serif',
                                 'font-size':'25px'}
                          ),
                 
                 dcc.DatePickerRange(
+                    id='date-picker',
                     clearable=True,
                     with_portal=True,
                     start_date = '2019-08-01',
@@ -134,9 +140,9 @@ def init_app(server):
                 html.Div(id='div-cards',children=[
                     dbc.Container(dbc.Row(
                         [
-                        dbc.Col([card1, card2], md=4),
-                        dbc.Col([card1, card2], md=4),
-                        dbc.Col([card1, card2], md=4),
+                        dbc.Col([create_card_views(), card2], md=4),
+                        dbc.Col([create_card_views(), card2], md=4),
+                        dbc.Col([create_card_views(), card2], md=4),
                         ]
                         )),
                 ])

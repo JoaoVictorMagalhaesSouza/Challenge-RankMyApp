@@ -5,14 +5,60 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
 
 def init_app(server):
+    FONT_AWESOME = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
     app = dash.Dash(
         __name__, 
         suppress_callback_exceptions=True,
         server=server,
-        external_stylesheets=[dbc.themes.CERULEAN]
+        external_stylesheets=[dbc.themes.CERULEAN,dbc.themes.BOOTSTRAP, FONT_AWESOME]
     )
     
     server = app.server
+    
+    card_icon = {
+    "color": "white",
+    "textAlign": "center",
+    "fontSize": 30,
+    "margin": "auto",
+    }
+    
+    card1 = dbc.CardGroup(
+    [
+        dbc.Card(
+            dbc.CardBody(
+                [
+                    html.H5("Card 1", className="card-title"),
+                    html.P("This card has some text content", className="card-text",),
+                ]
+            )
+        ),
+        dbc.Card(
+            html.Div(className="fa fa-list", style=card_icon),
+            className="bg-primary",
+            style={"maxWidth": 75},
+        ),
+    ],
+    className="mt-4 shadow",
+    )
+    
+    card2 = dbc.CardGroup(
+    [
+        dbc.Card(
+            dbc.CardBody(
+                [
+                    html.H5("Card 2", className="card-title"),
+                    html.P("This card has some text content", className="card-text",),
+                ]
+            )
+        ),
+        dbc.Card(
+            html.Div(className="fa fa-globe", style=card_icon),
+            className="bg-info",
+            style={"maxWidth": 75},
+        ),
+    ],className="mt-4 shadow",
+    )
+    
     
     SIDEBAR_STYLE = {
         "position": "fixed",
@@ -65,6 +111,12 @@ def init_app(server):
     def render_page_content(pathname):
         if pathname == "/":
             return[
+                html.Div(id='div-date',children=[
+                html.Div(id='div-label-date',children=['Período de análise'],
+                         style={'font-family':'Roboto, sans-serif',
+                                'font-size':'25px'}
+                         ),
+                
                 dcc.DatePickerRange(
                     clearable=True,
                     with_portal=True,
@@ -72,8 +124,22 @@ def init_app(server):
                     end_date = '2019-10-30',
                     min_date_allowed = '2019-08-01',
                     max_date_allowed = '2019-10-30',
-                    display_format = 'DD/MM/YYYY'
+                    display_format = 'DD/MM/YYYY',
+                    style={'color':'red'}
                 )
+                ],
+                    #style={'border':'1px solid #d3d3d3'}
+                        ),
+                
+                html.Div(id='div-cards',children=[
+                    dbc.Container(dbc.Row(
+                        [
+                        dbc.Col([card1, card2], md=4),
+                        dbc.Col([card1, card2], md=4),
+                        dbc.Col([card1, card2], md=4),
+                        ]
+                        )),
+                ])
                 
                 ]
     

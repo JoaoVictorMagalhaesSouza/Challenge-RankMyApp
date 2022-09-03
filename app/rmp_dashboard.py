@@ -23,7 +23,7 @@ def init_app(server):
     "margin": "auto",
     }
     def create_card_views(start_date='2019-08-01',end_date='2019-10-30'):
-        card1 = dbc.CardGroup(
+        card_views = dbc.CardGroup(
         [
             dbc.Card(
                 dbc.CardBody(
@@ -41,25 +41,28 @@ def init_app(server):
         ],
         className="mt-4 shadow",
         )
-        return card1
+        return card_views
     
-    card2 = dbc.CardGroup(
-    [
-        dbc.Card(
-            dbc.CardBody(
-                [
-                    html.H5("Card 2", className="card-title"),
-                    html.P("This card has some text content", className="card-text",),
-                ]
-            )
-        ),
-        dbc.Card(
-            html.Div(className="fa fa-globe", style=card_icon),
-            className="bg-info",
-            style={"maxWidth": 75},
-        ),
-    ],className="mt-4 shadow",
-    )
+    def create_card_installations(start_date='2019-08-01',end_date='2019-10-30'):
+        card_installations = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5("App Installations", className="card-title"),
+                        html.P(backend.get_app_installations(start_date,end_date), className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_installations
     
     
     SIDEBAR_STYLE = {
@@ -106,7 +109,13 @@ def init_app(server):
         content,       
         
     ])
-    
+    # @app.callback(
+    #     Output("div-cards",'children'),
+    #     [Input('date-picker', 'start_date'),
+    #     Input('date-picker', 'end_date')],
+    # )
+    # def update_metrics(start_date,end_date):
+    #     return dbc.Container()
         
     
     @app.callback(
@@ -140,9 +149,9 @@ def init_app(server):
                 html.Div(id='div-cards',children=[
                     dbc.Container(dbc.Row(
                         [
-                        dbc.Col([create_card_views(), card2], md=4),
-                        dbc.Col([create_card_views(), card2], md=4),
-                        dbc.Col([create_card_views(), card2], md=4),
+                        dbc.Col([create_card_views(), create_card_installations()], md=4),
+                        dbc.Col([create_card_views(), create_card_installations()], md=4),
+                        dbc.Col([create_card_views(), create_card_installations()], md=4),
                         ]
                         )),
                 ])

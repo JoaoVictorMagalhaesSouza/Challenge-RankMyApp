@@ -339,14 +339,14 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5('Total visitors', className="card-title"),
+                        html.H5('Total installs', className="card-title"),
                         html.P(f'{backend.get_installs_day(date)} installs', className="card-text",),
                     ]
                 )
             ),
             dbc.Card(
                 html.Div(className="fa fa-download", style=card_icon),
-                className="bg-danger",
+                className="bg-success",
                 style={"maxWidth": 75},
             ),
         ],className="mt-4 shadow",
@@ -354,10 +354,173 @@ def init_app(server):
         
         return card
 
+    def create_card_week_day_correspondent(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Referred Week Day', className="card-title"),
+                        html.P(f'{backend.get_referent_week_day(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-calendar", style=card_icon),
+                className="bg-warning",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
     
+    def create_card_percentage_visitors_installs(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('% Visit. that installs', className="card-title"),
+                        html.P(f'{backend.get_percentage_visitors_installs(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-percent", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
 
+    def create_card_retained_1d(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Installs retained 1d', className="card-title"),
+                        html.P(f'{backend.get_retained_1d(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
 
+    def create_card_retained_1d_rate(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('% Installs retained 1d', className="card-title"),
+                        html.P(f'{backend.get_retained_1d_rate(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-percent", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
     
+    def create_card_retained_7d(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Installs retained 7d', className="card-title"),
+                        html.P(f'{backend.get_retained_7d(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
+
+    def create_card_retained_7d_rate(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('% Installs retained 7d', className="card-title"),
+                        html.P(f'{backend.get_retained_7d_rate(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-percent", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
+    
+    def create_card_retained_30d(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Installs retained 30d', className="card-title"),
+                        html.P(f'{backend.get_retained_30d(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
+
+    def create_card_retained_30d_rate(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('% Installs retained 30d', className="card-title"),
+                        html.P(f'{backend.get_retained_30d_rate(date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-percent", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
     
     
     
@@ -419,7 +582,21 @@ def init_app(server):
                         dbc.Col([create_card_day_more_views(start_date,end_date),create_card_day_more_downs(start_date,end_date),create_card_average_installs(start_date,end_date),create_card_worst_views_day(start_date,end_date)], md=4),
                         dbc.Col([create_card_day_less_views(start_date,end_date),create_card_day_less_downs(start_date,end_date),create_card_best_views_day(start_date,end_date),create_card_worst_installs_day(start_date,end_date)], md=4),
                         ]
-                        )),
+                        ))
+    
+    @app.callback(
+        Output('div-individual-cards','children'),
+        Input('date-single', 'date'),
+        
+    )
+    def update_individual_metrics(date):
+        return dbc.Container(dbc.Row(
+                        [
+                        dbc.Col([create_card_visitors_day(date),create_card_percentage_visitors_installs(date),create_card_retained_7d(date)], md=4),
+                        dbc.Col([create_card_installs_day(date),create_card_retained_1d(date),create_card_retained_7d_rate(date),create_card_retained_30d_rate(date)], md=4),
+                        dbc.Col([create_card_week_day_correspondent(date),create_card_retained_1d_rate(date),create_card_retained_30d(date)], md=4),
+                        ]
+                        ))
         
     
     @app.callback(
@@ -483,9 +660,9 @@ def init_app(server):
                 html.Div(id='div-individual-cards',children=[
                     dbc.Container(dbc.Row(
                         [
-                        dbc.Col([], md=4),
-                        dbc.Col([], md=4),
-                        dbc.Col([], md=4),
+                        dbc.Col([create_card_visitors_day(),create_card_percentage_visitors_installs(),create_card_retained_7d()], md=4),
+                        dbc.Col([create_card_installs_day(),create_card_retained_1d(),create_card_retained_7d_rate(),create_card_retained_30d_rate()], md=4),
+                        dbc.Col([create_card_week_day_correspondent(),create_card_retained_1d_rate(),create_card_retained_30d()], md=4),
                         ]
                         )),
                 ])

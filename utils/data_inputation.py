@@ -13,7 +13,7 @@ class DataInputation():
         '''
             Objective: say which day of the week each of the records is
         '''
-        label_base = ['Quinta-Feira','Sexta-Feira','Sábado','Domingo','Segunda-Feira','Terça-Feira','Quarta-Feira']
+        label_base = ['Quarta-Feira','Quinta-Feira','Sexta-Feira','Sábado','Domingo','Segunda-Feira','Terça-Feira']
         #Repeating those days to insert into input data...
         i = 0
         while(len(label_base)!=len(self.data)):
@@ -22,7 +22,7 @@ class DataInputation():
             label_base.append(label_base[i])
             i += 1
         
-        self.data['Week Day'] = label_base
+        self.data['Referent Week Day'] = label_base
         
         
     def insert_dolar_price(self):
@@ -38,5 +38,5 @@ class DataInputation():
     
     def apply_pipeline_data_inputation(self):
         self.insert_week_nominal_day()
-        self.insert_dolar_price()
+        #self.insert_dolar_price()
         return self.data

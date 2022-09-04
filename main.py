@@ -3,8 +3,8 @@ import pandas as pd
 from utils import eda
 from utils import data_inputation
 
-%load_ext autoreload
-%autoreload 2
+# %load_ext autoreload
+# %autoreload 2
 data_path = './data/'
 #%% 1) Read the data
 input_data = pd.read_excel(f'{data_path}b4bank.xlsx',sheet_name='Retained_Bank')

@@ -5,7 +5,7 @@ from datetime import timedelta
 class BackEndDashboard():
     def __init__(self):
         self.data = pd.read_csv('../data/final_data.csv')
-    
+    #Periodic analisys
     def get_app_views(self, start_date='2019-08-01', end_date='2019-10-30'):
         end_date = datetime.datetime.strptime(end_date[0:10],'%Y-%m-%d')+timedelta(days=1)
         end_date = end_date.strftime('%Y-%m-%d')
@@ -133,7 +133,43 @@ class BackEndDashboard():
         aux_data = aux_data[aux_data['Installers']==minn]
         return aux_data['Date'].values[0][0:10], aux_data['Installers'].values[0]
 
-    
-    #Dia com maior número de installs
-    #Dia com menor número ...
+    #Individual analisys
+    def get_visitors_day(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Store Listing Visitors'][self.data['Date']==date].values[0]
 
+    def get_installs_day(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installers'][self.data['Date']==date].values[0]
+    
+    def get_percentage_visitors_installs(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Visitor-to-Installer conversion rate'][self.data['Date']==date].values[0]*100
+    
+    def get_retained_1d(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installers retained for 1 day'][self.data['Date']==date].values[0]
+    
+    def get_retained_1d_rate(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installer-to-1 day retention rate'][self.data['Date']==date].values[0]*100
+    
+    def get_retained_7d(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installers retained for 7 days'][self.data['Date']==date].values[0]
+    
+    def get_retained_7d_rate(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installer-to-7 days retention rate'][self.data['Date']==date].values[0]*100
+    
+    def get_retained_30d(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installers retained for 30 days'][self.data['Date']==date].values[0]
+    
+    def get_retained_30d_rate(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Installer-to-30 days retention rate'][self.data['Date']==date].values[0]*100
+    
+    def get_referent_week_day(self, date='2019-08-01'):
+        date = date+' 00:00:00'
+        return self.data['Referent Week Day'][self.data['Date']==date].values[0]

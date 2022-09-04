@@ -12,7 +12,7 @@ def init_app(server):
         __name__, 
         suppress_callback_exceptions=True,
         server=server,
-        external_stylesheets=[dbc.themes.BOOTSTRAP, FONT_AWESOME]
+        external_stylesheets=[dbc.themes.CERULEAN,dbc.themes.BOOTSTRAP, FONT_AWESOME]
     )
     backend = BackEndDashboard()
     server = app.server
@@ -312,6 +312,49 @@ def init_app(server):
         
         return card_worst_installs_day
     
+    def create_card_visitors_day(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Total visitors', className="card-title"),
+                        html.P(f'{backend.get_visitors_day(date)} visitors', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
+    
+    def create_card_installs_day(date='2019-08-01'):
+        card = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Total visitors', className="card-title"),
+                        html.P(f'{backend.get_installs_day(date)} installs', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-danger",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card
+
+    
 
 
     
@@ -416,7 +459,40 @@ def init_app(server):
                         ]
                         )),
                 ])
+            ]
+        elif pathname=='/individual':
+            return [
+                html.Div(id='div-individual-date',children=[
+                html.Div(id='div-label-date',children=['Day'],
+                         style={'font-family':'Roboto, sans-serif',
+                                'font-size':'25px'}
+                         ),
                 
-                ]
+                dcc.DatePickerSingle(
+                    id='date-single',
+                    clearable=True,
+                    with_portal=True,
+                    date = '2019-08-01',
+                    min_date_allowed = '2019-08-01',
+                    max_date_allowed = '2019-10-30',
+                    display_format = 'DD/MM/YYYY',
+                )
+                ],
+                    #style={'border':'1px solid #d3d3d3'}
+                        ),
+                html.Div(id='div-individual-cards',children=[
+                    dbc.Container(dbc.Row(
+                        [
+                        dbc.Col([], md=4),
+                        dbc.Col([], md=4),
+                        dbc.Col([], md=4),
+                        ]
+                        )),
+                ])
+
+
+            ]
+
+                
     
     return app

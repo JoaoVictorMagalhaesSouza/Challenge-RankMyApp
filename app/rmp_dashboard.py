@@ -64,6 +64,96 @@ def init_app(server):
         
         return card_installations
     
+    def create_card_day_more_views(start_date='2019-08-01',end_date='2019-10-30'):
+        
+        dados = backend.get_weekday_with_more_views(start_date,end_date)
+        card_more_vis = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('More acc. views', className="card-title"),
+                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75,'background-color':'#00a000 !important'},
+            ),
+        ],className="mt-4 shadow"
+        )
+        
+        return card_more_vis
+
+    def create_card_day_less_views(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_weekday_with_less_views(start_date,end_date)
+        card_less_vis = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Less acc. views', className="card-title"),
+                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_less_vis
+
+    def create_card_day_more_downs(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_weekday_with_more_installers(start_date,end_date)
+        card_more_downs = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('More acc. installs', className="card-title"),
+                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75, 'background-color':'#00a000 !important'},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_more_downs
+    
+    def create_card_day_less_downs(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_weekday_with_less_installers(start_date,end_date)
+        card_less_downs = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Less acc. installs', className="card-title"),
+                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-info",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_less_downs
+    
+    
     
     SIDEBAR_STYLE = {
         "position": "fixed",
@@ -91,8 +181,8 @@ def init_app(server):
         # ),
         dbc.Nav(
             [
-                dbc.NavLink("Basic Analisys", href="/", active="exact"),
-                dbc.NavLink("Complementary Analisys", href='/complementary', active="exact"),
+                dbc.NavLink("Periodic Analisys", href="/", active="exact"),
+                dbc.NavLink("Individual Analisys", href='/individual', active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -150,8 +240,8 @@ def init_app(server):
                     dbc.Container(dbc.Row(
                         [
                         dbc.Col([create_card_views(), create_card_installations()], md=4),
-                        dbc.Col([create_card_views(), create_card_installations()], md=4),
-                        dbc.Col([create_card_views(), create_card_installations()], md=4),
+                        dbc.Col([create_card_day_more_views(), create_card_day_less_views()], md=4),
+                        dbc.Col([create_card_day_more_downs(), create_card_day_less_downs()], md=4),
                         ]
                         )),
                 ])

@@ -57,3 +57,47 @@ class BackEndDashboard():
 
         return group_by_day.head(1).index[0], group_by_day.head(1).values[0][0]
     
+    def get_total_days(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data[(self.data['Date']>start_date)&(self.data['Date']<end_date)]
+        return len(aux_data)
+
+    def get_number_of_days_with_above_average_views(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data.loc[:,['Date','Store Listing Visitors']]
+        aux_data = aux_data[(aux_data['Date']>start_date)&(aux_data['Date']<end_date)]
+        mean_views = aux_data['Store Listing Visitors'].mean()
+        return aux_data['Store Listing Visitors'][aux_data['Store Listing Visitors']>=mean_views].count()
+    
+    def get_number_of_days_with_above_average_installs(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data.loc[:,['Date','Installers']]
+        aux_data = aux_data[(aux_data['Date']>start_date)&(aux_data['Date']<end_date)]
+        mean_views = aux_data['Installers'].mean()
+        return aux_data['Installers'][aux_data['Installers']>=mean_views].count()
+    
+    def get_best_view_day(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data.loc[:,['Date','Store Listing Visitors']]
+        aux_data = aux_data[(aux_data['Date']>start_date)&(aux_data['Date']<end_date)]
+        aux_data = aux_data[aux_data['Store Listing Visitors']==aux_data['Store Listing Visitors'].max()]
+        return aux_data['Date'].values[0][0:10], aux_data['Store Listing Visitors'].values[0]
+
+    def get_worst_view_day(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data.loc[:,['Date','Store Listing Visitors']]
+        aux_data = aux_data[(aux_data['Date']>start_date)&(aux_data['Date']<end_date)]
+        aux_data = aux_data[aux_data['Store Listing Visitors']==aux_data['Store Listing Visitors'].min()]
+        return aux_data['Date'].values[0][0:10], aux_data['Store Listing Visitors'].values[0]
+
+    def get_best_installs_day(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data.loc[:,['Date','Installers']]
+        aux_data = aux_data[(aux_data['Date']>start_date)&(aux_data['Date']<end_date)]
+        aux_data = aux_data[aux_data['Installers']==aux_data['Installers'].max()]
+        return aux_data['Date'].values[0][0:10], aux_data['Installers'].values[0]
+
+    def get_worst_installs_day(self, start_date='2019-08-01', end_date='2019-10-30'):
+        aux_data = self.data.loc[:,['Date','Installers']]
+        aux_data = aux_data[(aux_data['Date']>start_date)&(aux_data['Date']<end_date)]
+        aux_data = aux_data[aux_data['Installers']==aux_data['Installers'].min()]
+        return aux_data['Date'].values[0][0:10], aux_data['Installers'].values[0]
+
+    
+    #Dia com maior número de installs
+    #Dia com menor número ...
+

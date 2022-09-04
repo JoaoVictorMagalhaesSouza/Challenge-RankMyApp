@@ -11,7 +11,7 @@ def init_app(server):
         __name__, 
         suppress_callback_exceptions=True,
         server=server,
-        external_stylesheets=[dbc.themes.CERULEAN,dbc.themes.BOOTSTRAP, FONT_AWESOME]
+        external_stylesheets=[dbc.themes.BOOTSTRAP, FONT_AWESOME]
     )
     backend = BackEndDashboard()
     server = app.server
@@ -28,7 +28,7 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5("App Views", className="card-title"),
+                        html.H5("Total Views", className="card-title"),
                         html.P(backend.get_app_views(start_date,end_date), className="card-text",),
                     ]
                 )
@@ -49,7 +49,7 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5("App Installations", className="card-title"),
+                        html.H5("Total Installations", className="card-title"),
                         html.P(backend.get_app_installations(start_date,end_date), className="card-text",),
                     ]
                 )
@@ -72,15 +72,15 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5('More acc. views', className="card-title"),
-                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                        html.H5('More accum. views', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} views', className="card-text",),
                     ]
                 )
             ),
             dbc.Card(
                 html.Div(className="fa fa-eye", style=card_icon),
-                className="bg-info",
-                style={"maxWidth": 75,'background-color':'#00a000 !important'},
+                className="bg-success",
+                style={"maxWidth": 75},
             ),
         ],className="mt-4 shadow"
         )
@@ -94,14 +94,14 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5('Less acc. views', className="card-title"),
-                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                        html.H5('Less accum. views', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} views', className="card-text",),
                     ]
                 )
             ),
             dbc.Card(
                 html.Div(className="fa fa-eye", style=card_icon),
-                className="bg-info",
+                className="bg-danger",
                 style={"maxWidth": 75},
             ),
         ],className="mt-4 shadow",
@@ -116,14 +116,14 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5('More acc. installs', className="card-title"),
-                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                        html.H5('More accum. installs', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} installs', className="card-text",),
                     ]
                 )
             ),
             dbc.Card(
-                html.Div(className="fa fa-eye", style=card_icon),
-                className="bg-info",
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-success",
                 style={"maxWidth": 75, 'background-color':'#00a000 !important'},
             ),
         ],className="mt-4 shadow",
@@ -138,20 +138,182 @@ def init_app(server):
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H5('Less acc. installs', className="card-title"),
-                        html.P(f'{dados[0]} - {dados[1]}', className="card-text",),
+                        html.H5('Less accum. installs', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} installs', className="card-text",),
                     ]
                 )
             ),
             dbc.Card(
-                html.Div(className="fa fa-eye", style=card_icon),
-                className="bg-info",
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-danger",
                 style={"maxWidth": 75},
             ),
         ],className="mt-4 shadow",
         )
         
         return card_less_downs
+    
+    def create_card_average_views(start_date='2019-08-01',end_date='2019-10-30'):
+        """
+        quantidade de dias com visualizações acima da média
+        """
+        card_boom_views = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Boom view days', className="card-title"),
+                        html.P(f'{backend.get_number_of_days_with_above_average_views(start_date,end_date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-success",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_boom_views
+    
+    def create_card_average_installs(start_date='2019-08-01',end_date='2019-10-30'):
+        """
+        quantidade de dias com instalações acima da média
+        """
+        card_boom_installs = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Boom installs days', className="card-title"),
+                        html.P(f'{backend.get_number_of_days_with_above_average_installs(start_date,end_date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-success",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_boom_installs
+    
+    def create_card_total_days(start_date='2019-08-01',end_date='2019-10-30'):
+        
+        card_total_days = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Total days', className="card-title"),
+                        html.P(f'{backend.get_total_days(start_date,end_date)}', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-calendar", style=card_icon),
+                className="bg-warning",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_total_days
+    
+    def create_card_best_views_day(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_best_view_day()
+        card_best_views_day = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Best views day', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} views', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-success",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_best_views_day
+    
+    def create_card_worst_views_day(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_worst_view_day()
+        card_worst_views_day = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Worst views day', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} views', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-eye", style=card_icon),
+                className="bg-danger",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_worst_views_day
+    
+    def create_card_best_installs_day(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_best_installs_day()
+        card_best_installs_day = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Best installs day', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} installs', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-success",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_best_installs_day
+    
+    def create_card_worst_installs_day(start_date='2019-08-01',end_date='2019-10-30'):
+        dados = backend.get_worst_installs_day()
+        card_worst_installs_day = dbc.CardGroup(
+        [
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H5('Worst installs day', className="card-title"),
+                        html.P(f'{dados[0]}: {dados[1]} installs', className="card-text",),
+                    ]
+                )
+            ),
+            dbc.Card(
+                html.Div(className="fa fa-download", style=card_icon),
+                className="bg-danger",
+                style={"maxWidth": 75},
+            ),
+        ],className="mt-4 shadow",
+        )
+        
+        return card_worst_installs_day
+    
+
+
+    
     
     
     
@@ -239,9 +401,9 @@ def init_app(server):
                 html.Div(id='div-cards',children=[
                     dbc.Container(dbc.Row(
                         [
-                        dbc.Col([create_card_views(), create_card_installations()], md=4),
-                        dbc.Col([create_card_day_more_views(), create_card_day_less_views()], md=4),
-                        dbc.Col([create_card_day_more_downs(), create_card_day_less_downs()], md=4),
+                        dbc.Col([create_card_views(), create_card_installations(), create_card_total_days()], md=4),
+                        dbc.Col([create_card_day_more_views(),create_card_day_more_downs(),create_card_average_views(),create_card_best_views_day(),create_card_worst_views_day()], md=4),
+                        dbc.Col([create_card_day_less_views(),create_card_day_less_downs(),create_card_average_installs(),create_card_best_installs_day(),create_card_worst_installs_day()], md=4),
                         ]
                         )),
                 ])

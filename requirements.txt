@@ -1,8 +1,0 @@
-pandas
-plotly
-openpyxl
-nbformat
-forex-python
-flask
-dash
-dash-bootstrap-components

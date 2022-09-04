@@ -224,7 +224,7 @@ def init_app(server):
         return card_total_days
     
     def create_card_best_views_day(start_date='2019-08-01',end_date='2019-10-30'):
-        dados = backend.get_best_view_day()
+        dados = backend.get_best_view_day(start_date,end_date)
         card_best_views_day = dbc.CardGroup(
         [
             dbc.Card(
@@ -246,7 +246,7 @@ def init_app(server):
         return card_best_views_day
     
     def create_card_worst_views_day(start_date='2019-08-01',end_date='2019-10-30'):
-        dados = backend.get_worst_view_day()
+        dados = backend.get_worst_view_day(start_date,end_date)
         card_worst_views_day = dbc.CardGroup(
         [
             dbc.Card(
@@ -268,7 +268,7 @@ def init_app(server):
         return card_worst_views_day
     
     def create_card_best_installs_day(start_date='2019-08-01',end_date='2019-10-30'):
-        dados = backend.get_best_installs_day()
+        dados = backend.get_best_installs_day(start_date,end_date)
         card_best_installs_day = dbc.CardGroup(
         [
             dbc.Card(
@@ -290,7 +290,7 @@ def init_app(server):
         return card_best_installs_day
     
     def create_card_worst_installs_day(start_date='2019-08-01',end_date='2019-10-30'):
-        dados = backend.get_worst_installs_day()
+        dados = backend.get_worst_installs_day(start_date,end_date)
         card_worst_installs_day = dbc.CardGroup(
         [
             dbc.Card(
@@ -361,13 +361,21 @@ def init_app(server):
         content,       
         
     ])
-    # @app.callback(
-    #     Output("div-cards",'children'),
-    #     [Input('date-picker', 'start_date'),
-    #     Input('date-picker', 'end_date')],
-    # )
-    # def update_metrics(start_date,end_date):
-    #     return dbc.Container()
+    @app.callback(
+        Output("div-cards",'children'),
+        [Input('date-picker', 'start_date'),
+        Input('date-picker', 'end_date')],
+    )
+    def update_metrics(start_date,end_date):
+        # print(f"Start: {start_date}")
+        # print(f'End: {end_date}')
+        return dbc.Container(dbc.Row(
+                        [
+                        dbc.Col([create_card_views(start_date,end_date), create_card_installations(start_date,end_date), create_card_total_days(start_date,end_date)], md=4),
+                        dbc.Col([create_card_day_more_views(start_date,end_date),create_card_day_more_downs(start_date,end_date),create_card_average_views(start_date,end_date),create_card_best_views_day(start_date,end_date),create_card_worst_views_day(start_date,end_date)], md=4),
+                        dbc.Col([create_card_day_less_views(start_date,end_date),create_card_day_less_downs(start_date,end_date),create_card_average_installs(start_date,end_date),create_card_best_installs_day(start_date,end_date),create_card_worst_installs_day(start_date,end_date)], md=4),
+                        ]
+                        ))
         
     
     @app.callback(

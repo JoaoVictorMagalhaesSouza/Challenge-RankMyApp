@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
 from backend import BackEndDashboard
+import datetime
 
 def init_app(server):
     FONT_AWESOME = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
@@ -231,7 +232,7 @@ def init_app(server):
                 dbc.CardBody(
                     [
                         html.H5('Best views day', className="card-title"),
-                        html.P(f'{dados[0]}: {dados[1]} views', className="card-text",),
+                        html.P(f'{datetime.datetime.strptime(dados[0][0:10],"%Y-%m-%d").strftime("%d/%m/%Y")}: {dados[1]} views', className="card-text",),
                     ]
                 )
             ),
@@ -253,7 +254,7 @@ def init_app(server):
                 dbc.CardBody(
                     [
                         html.H5('Worst views day', className="card-title"),
-                        html.P(f'{dados[0]}: {dados[1]} views', className="card-text",),
+                        html.P(f'{datetime.datetime.strptime(dados[0][0:10],"%Y-%m-%d").strftime("%d/%m/%Y")}: {dados[1]} views', className="card-text",),
                     ]
                 )
             ),
@@ -275,7 +276,7 @@ def init_app(server):
                 dbc.CardBody(
                     [
                         html.H5('Best installs day', className="card-title"),
-                        html.P(f'{dados[0]}: {dados[1]} installs', className="card-text",),
+                        html.P(f'{datetime.datetime.strptime(dados[0][0:10],"%Y-%m-%d").strftime("%d/%m/%Y")}: {dados[1]} installs', className="card-text",),
                     ]
                 )
             ),
@@ -297,7 +298,7 @@ def init_app(server):
                 dbc.CardBody(
                     [
                         html.H5('Worst installs day', className="card-title"),
-                        html.P(f'{dados[0]}: {dados[1]} installs', className="card-text",),
+                        html.P(f'{datetime.datetime.strptime(dados[0][0:10],"%Y-%m-%d").strftime("%d/%m/%Y")}: {dados[1]} installs', className="card-text",),
                     ]
                 )
             ),
@@ -371,11 +372,11 @@ def init_app(server):
         # print(f'End: {end_date}')
         return dbc.Container(dbc.Row(
                         [
-                        dbc.Col([create_card_views(start_date,end_date), create_card_installations(start_date,end_date), create_card_total_days(start_date,end_date)], md=4),
-                        dbc.Col([create_card_day_more_views(start_date,end_date),create_card_day_more_downs(start_date,end_date),create_card_average_views(start_date,end_date),create_card_best_views_day(start_date,end_date),create_card_worst_views_day(start_date,end_date)], md=4),
-                        dbc.Col([create_card_day_less_views(start_date,end_date),create_card_day_less_downs(start_date,end_date),create_card_average_installs(start_date,end_date),create_card_best_installs_day(start_date,end_date),create_card_worst_installs_day(start_date,end_date)], md=4),
+                        dbc.Col([create_card_views(start_date,end_date), create_card_installations(start_date,end_date),create_card_average_views(start_date,end_date),create_card_best_installs_day(start_date,end_date)], md=4),
+                        dbc.Col([create_card_day_more_views(start_date,end_date),create_card_day_more_downs(start_date,end_date),create_card_average_installs(start_date,end_date),create_card_worst_views_day(start_date,end_date)], md=4),
+                        dbc.Col([create_card_day_less_views(start_date,end_date),create_card_day_less_downs(start_date,end_date),create_card_best_views_day(start_date,end_date),create_card_worst_installs_day(start_date,end_date)], md=4),
                         ]
-                        ))
+                        )),
         
     
     @app.callback(
@@ -409,9 +410,9 @@ def init_app(server):
                 html.Div(id='div-cards',children=[
                     dbc.Container(dbc.Row(
                         [
-                        dbc.Col([create_card_views(), create_card_installations(), create_card_total_days()], md=4),
-                        dbc.Col([create_card_day_more_views(),create_card_day_more_downs(),create_card_average_views(),create_card_best_views_day(),create_card_worst_views_day()], md=4),
-                        dbc.Col([create_card_day_less_views(),create_card_day_less_downs(),create_card_average_installs(),create_card_best_installs_day(),create_card_worst_installs_day()], md=4),
+                        dbc.Col([create_card_views(), create_card_installations(),create_card_average_views(),create_card_best_installs_day()], md=4),
+                        dbc.Col([create_card_day_more_views(),create_card_day_more_downs(),create_card_average_installs(),create_card_worst_views_day()], md=4),
+                        dbc.Col([create_card_day_less_views(),create_card_day_less_downs(),create_card_best_views_day(),create_card_worst_installs_day()], md=4),
                         ]
                         )),
                 ])

@@ -2,16 +2,6 @@ FROM python:3.9.0
 
 WORKDIR /usr/local/bin
 
-RUN apt-get update && apt-get install -y \
-    sudo \
-    pandoc \
-    pandoc-citeproc \
-    libcurl4-gnutls-dev \
-    libcairo2-dev \
-    libxt-dev \
-    libssl-dev \
-    libssh2-1-dev 
-
 RUN apt-get update && \
     apt-get upgrade -y
 
@@ -22,4 +12,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8050
 
-CMD ["python","app.py"]
+CMD ["python","/app/app.py"]

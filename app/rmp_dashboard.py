@@ -607,7 +607,7 @@ def init_app(server):
         if pathname == "/":
             return[
                 html.Div(id='div-date',children=[
-                html.Div(id='div-label-date',children=['Analysis Period'],
+                html.Div(id='div-label-date',children=['Analize a period'],
                          style={'font-family':'Roboto, sans-serif',
                                 'font-size':'25px'}
                          ),
@@ -640,7 +640,7 @@ def init_app(server):
         elif pathname=='/individual':
             return [
                 html.Div(id='div-individual-date',children=[
-                html.Div(id='div-label-date',children=['Day'],
+                html.Div(id='div-label-date',children=['Analize a day'],
                          style={'font-family':'Roboto, sans-serif',
                                 'font-size':'25px'}
                          ),

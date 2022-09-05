@@ -31,3 +31,18 @@ Essa tela mostra algumas métricas que fazem sentido quando são analisadas por 
     <li><strong>Worst views day:</strong> Dia com menos visualizações no período fornecido;</li>
     <li><strong>Worst installs day:</strong> Dia com menos instalações no período fornecido;</li>
 </ul>
+
+### Tela 2 - Individual Analisys
+O objetivo dessa feature é complementar eventuais análises que possam surgir da Tela 1. Com ela, é possível consultar dados individuais de um dia específico como a quantidade de instalações naquele dia, a quantidade de visualizações, o percentual de retenção nos últimos dias, entre outros.
+
+## Formas de executar o dashboard
+
+### <strong> 1) Online</strong> 
+Basta acessar o link (https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/) ou [clicar aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/).
+
+### <strong> 2) Localmente - forma tradicional</strong>  
+Após clonar o repositório, recomendo utilizar a versão 3.8.5 do Python, instalar as bibliotecas contidas no arquivo "requirements.txt", abrir o terminal dentro da pasta "app" e executar "python app.py" ou "flask run". Após isso, abra o seguinte endereço em qualquer navegador: "localhost:8050".
+
+### <strong> 3) Localmente - forma ninja</strong>
+Essa forma requer o Docker instalado corretamente na máquina. O primeiro passo é baixar a imagem do dashboard, que pode ser feito através do seguinte comando no terminal: <em><strong>docker pull gcr.io/cobal-inverter-322402-challenge_rma:latest</em></strong>. Depois, basta criamos um container que executará à base da imagem baixada: <em><strong>docker run -p 8050:8050 gcr.io/cobal-inverter-322402-challenge_rma:latest</strong></em>.
+Após isso, abra o seguinte endereço em qualquer navegador: "localhost:8050".

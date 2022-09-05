@@ -1,5 +1,5 @@
 # Challenge-RankMyApp
-Repositório criado para o PS de Cientista de Dados da RankMyApp. De antemão, adianto que umo dashboard interativo foi gerado para solução deste desafio e o mesmo pode ser acessado [clicando aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app).
+Repositório criado para o PS de Cientista de Dados da RankMyApp. De antemão, adianto que um dashboard interativo foi gerado para solução deste desafio e o mesmo pode ser acessado [clicando aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app).
 
 ## Etapa 1 - EDA + Data Preparation
 O objetivo desta etapa é entender mais sobre os dados de entrada bem como fazer as manipulações necessárias para realizar futuras análises sem quaisquer problemas sintáticos dos dados. A minha primeira busca então foi por valores ausentes, que são comumente encontrados mas, nesta aplicação, os dados de entrada não possuíam valores ausentes. Como o problema de negócio é relacionado apenas aos dados obtidos no canal o orgânico, realizei uma filtragem utilizando a coluna "Acquisition Channel", deixando apenas todos os registros cuja a condição "Acquisition Channel" == "Organic" era satisfeita.

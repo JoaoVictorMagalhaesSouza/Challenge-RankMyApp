@@ -12,9 +12,12 @@ def init_app(server):
     app = dash.Dash(
         __name__, 
         suppress_callback_exceptions=True,
+        title="Rank My App Challenge - João Victor Magalhães Souza",
         server=server,
+        
         external_stylesheets=[dbc.themes.CERULEAN,dbc.themes.BOOTSTRAP, FONT_AWESOME]
     )
+
     backend = BackEndDashboard()
     server = app.server
     

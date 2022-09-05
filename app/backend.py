@@ -133,6 +133,13 @@ class BackEndDashboard():
         aux_data = aux_data[aux_data['Installers']==minn]
         return aux_data['Date'].values[0][0:10], aux_data['Installers'].values[0]
 
+    def get_dataframe_graph1(self, start_date='2019-08-01', end_date='2019-10-30'):
+        end_date = datetime.datetime.strptime(end_date[0:10],'%Y-%m-%d')+timedelta(days=1)
+        end_date = end_date.strftime('%Y-%m-%d')
+        aux_data = self.data.loc[:,['Date','Store Listing Visitors','Installers','Referent Week Day']]
+        aux_data = aux_data[(aux_data['Date']>=start_date)&(aux_data['Date']<=end_date)]
+        return aux_data
+
     #Individual analisys
     def get_visitors_day(self, date='2019-08-01'):
         date = date+' 00:00:00'

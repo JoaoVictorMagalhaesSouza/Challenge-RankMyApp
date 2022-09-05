@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
 from backend import BackEndDashboard
+import plotly.express as px
 import datetime
 
 def init_app(server):
@@ -568,21 +569,31 @@ def init_app(server):
         content,       
         
     ])
+    
+   
+
     @app.callback(
         Output("div-cards",'children'),
+        Output("scatter",'figure'),
         [Input('date-picker', 'start_date'),
         Input('date-picker', 'end_date')],
     )
     def update_metrics(start_date,end_date):
         # print(f"Start: {start_date}")
         # print(f'End: {end_date}')
+        df = backend.get_dataframe_graph1(start_date,end_date)
         return dbc.Container(dbc.Row(
                         [
                         dbc.Col([create_card_views(start_date,end_date), create_card_installations(start_date,end_date),create_card_average_views(start_date,end_date),create_card_best_installs_day(start_date,end_date)], md=4),
                         dbc.Col([create_card_day_more_views(start_date,end_date),create_card_day_more_downs(start_date,end_date),create_card_average_installs(start_date,end_date),create_card_worst_views_day(start_date,end_date)], md=4),
                         dbc.Col([create_card_day_less_views(start_date,end_date),create_card_day_less_downs(start_date,end_date),create_card_best_views_day(start_date,end_date),create_card_worst_installs_day(start_date,end_date)], md=4),
                         ]
-                        ))
+                        )),px.scatter(df,y='Installers',x='Store Listing Visitors',color='Referent Week Day',
+                        title='Relation between Visitors x Installers x Week Day').update_layout({
+                                                                    'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+                                                                    'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+                                                                    }),
+                        
     
     @app.callback(
         Output('div-individual-cards','children'),
@@ -605,6 +616,7 @@ def init_app(server):
     )
     def render_page_content(pathname):
         if pathname == "/":
+            dados = backend.get_dataframe_graph1()
             return[
                 html.Div(id='div-date',children=[
                 html.Div(id='div-label-date',children=['Analize a period'],
@@ -635,7 +647,15 @@ def init_app(server):
                         dbc.Col([create_card_day_less_views(),create_card_day_less_downs(),create_card_best_views_day(),create_card_worst_installs_day()], md=4),
                         ]
                         )),
-                ])
+                    
+                ]),
+                dcc.Graph(id='scatter',figure=px.scatter(dados,
+                        y='Installers',x='Store Listing Visitors',color='Referent Week Day',
+                        title='Relation between Visitors x Installers x Week Day'
+                    ).update_layout({
+                    'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+                    'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+                    }))
             ]
         elif pathname=='/individual':
             return [
@@ -665,6 +685,7 @@ def init_app(server):
                         dbc.Col([create_card_week_day_correspondent(),create_card_retained_1d_rate(),create_card_retained_30d()], md=4),
                         ]
                         )),
+                    
                 ])
 
 

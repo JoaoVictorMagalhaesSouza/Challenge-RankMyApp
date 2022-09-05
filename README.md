@@ -1,6 +1,13 @@
 # Challenge-RankMyApp
 Repositório criado para o PS de Cientista de Dados da RankMyApp. De antemão, adianto que um dashboard interativo foi gerado para solução deste desafio e o mesmo pode ser acessado [clicando aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app).
 
+## Sumário
+- [Etapa 1 - EDA + Data Preparation](#etapa-1---eda--data-preparation)
+- [Etapa 2 - Data Enrichment](#etapa-2---data-enrichment)
+- [Etapa 3 - Dashboard](#etapa-3---dashboard)
+    - [Tela 1 - Periodic Analisys](#tela-1---periodic-analisys)
+    - [Tela 2 - Individual Analisys](#tela-2---individual-analisys)
+- [Formas de acessar ao dashboard](#formas-de-acessar-ao-dashboard)
 ## Etapa 1 - EDA + Data Preparation
 O objetivo desta etapa é entender mais sobre os dados de entrada bem como fazer as manipulações necessárias para realizar futuras análises sem quaisquer problemas sintáticos dos dados. A minha primeira busca então foi por valores ausentes, que são comumente encontrados mas, nesta aplicação, os dados de entrada não possuíam valores ausentes. Como o problema de negócio é relacionado apenas aos dados obtidos no canal o orgânico, realizei uma filtragem utilizando a coluna "Acquisition Channel", deixando apenas todos os registros cuja a condição "Acquisition Channel" == "Organic" era satisfeita.
 
@@ -35,7 +42,7 @@ Essa tela mostra algumas métricas que fazem sentido quando são analisadas por 
 ### Tela 2 - Individual Analisys
 O objetivo dessa feature é complementar eventuais análises que possam surgir da Tela 1. Com ela, é possível consultar dados individuais de um dia específico como a quantidade de instalações naquele dia, a quantidade de visualizações, o percentual de retenção nos últimos dias, entre outros.
 
-## Formas de executar o dashboard
+## Formas de acessar ao dashboard
 
 ### <strong> 1) Online</strong> 
 Basta acessar o link (https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/) ou [clicar aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/).

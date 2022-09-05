@@ -575,6 +575,8 @@ def init_app(server):
     @app.callback(
         Output("div-cards",'children'),
         Output("scatter",'figure'),
+        Output("barplot1", 'figure'),
+        Output("barplot2", 'figure'),
         [Input('date-picker', 'start_date'),
         Input('date-picker', 'end_date')],
     )
@@ -582,7 +584,9 @@ def init_app(server):
         # print(f"Start: {start_date}")
         # print(f'End: {end_date}')
         df = backend.get_dataframe_graph1(start_date,end_date)
-        return dbc.Container(dbc.Row(
+        dados2 = backend.get_dataframe_graph2(start_date, end_date)
+        dados3 = backend.get_dataframe_graph3(start_date, end_date)
+        return (dbc.Container(dbc.Row(
                         [
                         dbc.Col([create_card_views(start_date,end_date), create_card_installations(start_date,end_date),create_card_average_views(start_date,end_date),create_card_best_installs_day(start_date,end_date)], md=4),
                         dbc.Col([create_card_day_more_views(start_date,end_date),create_card_day_more_downs(start_date,end_date),create_card_average_installs(start_date,end_date),create_card_worst_views_day(start_date,end_date)], md=4),
@@ -593,6 +597,21 @@ def init_app(server):
                                                                     'plot_bgcolor': 'rgba(0, 0, 0, 0)',
                                                                     'paper_bgcolor': 'rgba(0, 0, 0, 0)',
                                                                     }),
+                        px.bar(dados2,x=dados2.index,y='Store Listing Visitors',
+                    title='Comparisson between accum. visitors in week days'
+                ).update_layout({
+                    'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+                    'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+                    }),
+                    px.bar(dados3,x=dados3.index,y='Installers',
+                    title='Comparisson between accum. installs in week days'
+                ).update_layout({
+                    'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+                    'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+                    }),
+                    
+                    )
+                        
                         
     
     @app.callback(
@@ -617,6 +636,8 @@ def init_app(server):
     def render_page_content(pathname):
         if pathname == "/":
             dados = backend.get_dataframe_graph1()
+            dados2 = backend.get_dataframe_graph2()
+            dados3 = backend.get_dataframe_graph3()
             return[
                 html.Div(id='div-date',children=[
                 html.Div(id='div-label-date',children=['Analize a period'],
@@ -653,6 +674,18 @@ def init_app(server):
                         y='Installers',x='Store Listing Visitors',color='Referent Week Day',
                         title='Relation between Visitors x Installers x Week Day'
                     ).update_layout({
+                    'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+                    'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+                    })),
+                dcc.Graph(id='barplot1',figure=px.bar(dados2,x=dados2.index,y='Store Listing Visitors',
+                    title='Comparisson between accum. visitors in week days'
+                ).update_layout({
+                    'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+                    'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+                    })),
+                dcc.Graph(id='barplot2',figure=px.bar(dados3,x=dados3.index,y='Installers',
+                    title='Comparisson between accum. installs in week days'
+                ).update_layout({
                     'plot_bgcolor': 'rgba(0, 0, 0, 0)',
                     'paper_bgcolor': 'rgba(0, 0, 0, 0)',
                     }))

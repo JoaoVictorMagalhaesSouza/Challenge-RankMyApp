@@ -139,6 +139,28 @@ class BackEndDashboard():
         aux_data = self.data.loc[:,['Date','Store Listing Visitors','Installers','Referent Week Day']]
         aux_data = aux_data[(aux_data['Date']>=start_date)&(aux_data['Date']<=end_date)]
         return aux_data
+    
+    def get_dataframe_graph2(self, start_date='2019-08-01', end_date='2019-10-30'):
+        end_date = datetime.datetime.strptime(end_date[0:10],'%Y-%m-%d')+timedelta(days=1)
+        end_date = end_date.strftime('%Y-%m-%d')
+        aux_data = self.data.loc[:,['Date','Store Listing Visitors','Referent Week Day']]
+        aux_data = aux_data[(aux_data['Date']>=start_date)&(aux_data['Date']<=end_date)]
+        aux_data = aux_data.drop(columns={'Date'})
+        group_day = aux_data.groupby('Referent Week Day').sum()
+        group_day = group_day.sort_values(by='Store Listing Visitors',ascending=False)
+        return group_day
+    
+    def get_dataframe_graph3(self, start_date='2019-08-01', end_date='2019-10-30'):
+        end_date = datetime.datetime.strptime(end_date[0:10],'%Y-%m-%d')+timedelta(days=1)
+        end_date = end_date.strftime('%Y-%m-%d')
+        aux_data = self.data.loc[:,['Date','Installers','Referent Week Day']]
+        aux_data = aux_data[(aux_data['Date']>=start_date)&(aux_data['Date']<=end_date)]
+        aux_data = aux_data.drop(columns={'Date'})
+        group_day = aux_data.groupby('Referent Week Day').sum()
+        group_day = group_day.sort_values(by='Installers',ascending=False)
+        return group_day
+    
+
 
     #Individual analisys
     def get_visitors_day(self, date='2019-08-01'):

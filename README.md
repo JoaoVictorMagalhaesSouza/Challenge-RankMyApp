@@ -51,5 +51,5 @@ Basta acessar o link (https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/) ou [
 Após clonar o repositório, recomendo utilizar a versão 3.8.5 do Python, instalar as bibliotecas contidas no arquivo "requirements.txt", abrir o terminal dentro da pasta "app" e executar "python app.py" ou "flask run". Após isso, abra o seguinte endereço em qualquer navegador: "localhost:8050".
 
 ### <strong> 3) Localmente - forma ninja</strong>
-Essa forma requer o Docker instalado corretamente na máquina. O primeiro passo é baixar a imagem do dashboard, que pode ser feito através do seguinte comando no terminal: <em><strong>docker pull gcr.io/cobal-inverter-322402-challenge_rma:latest</em></strong>. Depois, basta criamos um container que executará à base da imagem baixada: <em><strong>docker run -p 8050:8050 gcr.io/cobal-inverter-322402-challenge_rma:latest</strong></em>.
+Essa forma requer o Docker instalado corretamente na máquina. O primeiro passo é baixar a imagem do dashboard, que pode ser feito através do seguinte comando no terminal: <em><strong>docker pull gcr.io/cobal-inverter-322402-challenge_rma:latest</em></strong>. Depois, basta criamos um container que executará à base da imagem baixada: <em><strong>docker run -p 8050:8050 gcr.io/cobal-inverter-322402/challenge_rma:latest</strong></em>.
 Após isso, abra o seguinte endereço em qualquer navegador: "localhost:8050".

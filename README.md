@@ -1,5 +1,5 @@
 # Challenge-RankMyApp
-Repositório criado para o PS de Cientista de Dados da RankMyApp. De antemão, adianto que um dashboard interativo foi gerado para solução deste desafio e o mesmo pode ser acessado [clicando aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app).
+Repositório criado para o PS de Cientista de Dados da RankMyApp. 
 
 ## Sumário
 - [Etapa 1 - EDA + Data Preparation](#etapa-1---eda--data-preparation)
@@ -45,7 +45,7 @@ O objetivo dessa feature é complementar eventuais análises que possam surgir d
 ## Formas de acessar ao dashboard
 
 ### <strong> 1) Online</strong> 
-Basta acessar o link (https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/) ou [clicar aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/).
+[NOT RUNNING] Basta acessar o link (https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/) ou [clicar aqui](https://desafio-rank-my-app-st5shwubpq-rj.a.run.app/).
 
 ### <strong> 2) Localmente - forma tradicional</strong>  
 Após clonar o repositório, recomendo utilizar a versão 3.8.5 do Python, instalar as bibliotecas contidas no arquivo "requirements.txt", abrir o terminal dentro da pasta "app" e executar "python app.py" ou "flask run". Após isso, abra o seguinte endereço em qualquer navegador: "localhost:8050".
